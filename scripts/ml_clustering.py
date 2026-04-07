@@ -82,13 +82,11 @@ def train_and_predict(df: pd.DataFrame, n_clusters: int = 3) -> pd.DataFrame:
         cid = row['CLUSTER_ID']
         
         if cid == premium_cluster_id:
-            return 'Premium Segment'
+            return 'Premium Segment (ULEZ Compliant)' if is_compliant else 'Premium Segment (Non-Compliant)'
+        elif cid == mid_cluster_id:
+            return 'Standard Market (ULEZ Compliant)' if is_compliant else 'Standard Market (Non-Compliant)'
         elif cid == value_cluster_id:
-            if not is_compliant:
-                return 'Desperate Dump (Non-Compliant Value)'
-            return 'Budget Entry'
-        else:
-            return 'Standard Market'
+            return 'Budget Entry (ULEZ Compliant)' if is_compliant else 'Desperate Dump (Non-Compliant)'
             
     df['CLUSTER_NAME'] = df.apply(map_cluster_name, axis=1)
     logger.info("Clustering completed and business profiles assigned.")
