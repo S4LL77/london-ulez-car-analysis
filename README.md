@@ -12,7 +12,10 @@ This end-to-end Data Engineering and Analytics project investigates the economic
 *Detailed ranking of top 30 diesel models most affected by the ULEZ expansion.*
 
 ![Machine Learning Market Segmentation](docs/images/ml_clusters.png)
-*K-Means clustering algorithm segmenting the market based on price and mileage profiles.*
+*K-Means clustering algorithm segmenting the market based on price, mileage, and explicitly calculating ULEZ Compliance impact.*
+
+![Machine Learning Sample Profiles](docs/images/ml_cluster_samples.png)
+*Real vehicles dynamically classified into each cluster directly from the Snowflake data warehouse.*
 
 ## 🏗️ Data Engineering Architecture
 
