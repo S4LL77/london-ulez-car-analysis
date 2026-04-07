@@ -1,14 +1,67 @@
-# Impact of ULEZ Expansion on Used Car Prices in London
+# 🚗 London ULEZ Expansion: Used Car Market Impact Analysis
 
-This project analyzes the economic effects of the Ultra Low Emission Zone (ULEZ) expansions on the UK used car market using Snowflake (Medallion Architecture), dbt, and Machine Learning.
+This end-to-end Data Engineering and Analytics project investigates the economic effects of the Ultra Low Emission Zone (ULEZ) expansions on the UK used car market. Specifically, it analyzes how the policy affected non-compliant diesel vehicle prices compared to compliant ones.
 
-## Project Structure
-- `snowflake/`: SQL setup for Databases, Roles, and Schemas.
-- `dbt_project/`: Transformation layers (Bronze, Silver, Gold).
-- `ml_analysis/`: Python scripts for Price Prediction and Causal Inference.
-- `scripts/`: Data ingestion and orchestration.
+## 📊 Analytics & Insights
 
-## Research Questions
-- Did the expansion of London's ULEZ policy affect the price of used vehicles depending on emissions compliance?
-- What is the price penalty for non-compliant diesel vehicles after 2023?
-- Can we predict car prices accurately based on ULEZ status?
+*(Add the screenshots from your Streamlit Dashboards / API here)*
+
+![Dashboard Overview](docs/images/streamlit_overview.png)
+> **Note:** Drop your dashboard overview screenshot at `docs/images/streamlit_overview.png`
+
+![Price Depreciation Analysis](docs/images/price_analysis.png)
+> **Note:** Drop your price analysis screenshot at `docs/images/price_analysis.png`
+
+## 🏗️ Data Engineering Architecture
+
+The project tracks real-world data and implements a robust **Medallion Architecture** on Snowflake using the modern data stack.
+
+```mermaid
+flowchart LR
+    A[AutoTrader API] -->|Python Ingestion| B(Snowflake: BRONZE)
+    B -->|dbt: Clean & Map| C(Snowflake: SILVER)
+    C -->|dbt: Data Marts| D(Snowflake: GOLD)
+    D -->|Python| E[Streamlit Dashboard / API]
+    D -->|Scikit-Learn| F[ML Price Models]
+    
+    style A fill:#f9f9f9,stroke:#333
+    style B fill:#CD7F32,color:#fff
+    style C fill:#C0C0C0,color:#fff
+    style D fill:#FFD700,color:#fff
+    style E fill:#ff4b4b,color:#fff
+    style F fill:#4CAF50,color:#fff
+```
+
+### The Data Pipeline
+1. **Bronze Layer (Raw Data):** 
+   - A custom Python orchestrator (`scripts/data_engine.py`) extracts near real-time listings from the AutoTrader GraphQL API.
+   - Pushes raw attributes to Snowflake using internal stages, allowing continuous ingestion streams.
+
+2. **Silver Layer (Staging & Cleansing):** 
+   - Standardizes the data types using **dbt** (`dbt_project/models/staging`).
+   - Establishes ULEZ compliance business logic based on vehicle year, emissions, and fuel-type constraints.
+
+3. **Gold Layer (Business Data Marts):** 
+   - Aggregates and materializes analysis-ready facts and dimensions via **dbt** (`dbt_project/models/marts`).
+   - Serves analytical views (e.g. `mart_diesel_devaluation`) for direct visualization.
+
+4. **Machine Learning:**
+   - Evaluates price erosion using regression models based on ULEZ compliance status.
+
+## 🗂️ Project Structure
+- `snowflake/`: SQL configurations for roles, warehouses, streams, and tasks.
+- `dbt_project/`: Transformation logic (Bronze -> Silver -> Gold).
+- `scripts/`: Custom data collectors and the operational data engine.
+- `ml_analysis/`: Python-based clustering and price prediction scripts.
+- `app/`: Frontend Streamlit application and APIs connecting to Snowflake.
+
+## 🛠️ Technology Stack
+- **Data Warehouse:** Snowflake
+- **Transformations:** dbt
+- **Ingestion Engine:** Python
+- **Frontend / API:** Streamlit, FastAPI
+
+## 📝 Core Research Questions
+1. Did the ULEZ expansion accelerate the depreciation of non-compliant diesel vehicles?
+2. What is the average financial penalty for holding an older diesel car post-2023?
+3. How accurately can we predict selling patterns depending on the ULEZ bracket?
