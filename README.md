@@ -23,8 +23,9 @@ flowchart LR
     A[AutoTrader API] -->|Python Ingestion| B(Snowflake: BRONZE)
     B -->|dbt: Clean & Map| C(Snowflake: SILVER)
     C -->|dbt: Data Marts| D(Snowflake: GOLD)
-    D -->|Python| E[Streamlit Dashboard / API]
     D -->|Scikit-Learn| F[ML Price Models]
+    F -->|Enriched Data| D
+    D -->|Python| E[Streamlit Dashboard / API]
     
     style A fill:#f9f9f9,stroke:#333
     style B fill:#CD7F32,color:#fff
