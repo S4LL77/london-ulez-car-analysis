@@ -152,7 +152,7 @@ if not df_clusters.empty:
         st.subheader("Cluster Distribution")
         distribution = df_clusters['cluster_name'].value_counts().reset_index()
         distribution.columns = ['Profile', 'Count']
-        st.dataframe(distribution, use_container_width=True)
+        st.table(distribution)
         st.info("These business profiles are grouped algorithmically based on Price, Mileage, and Age, independently of human bias.")
 else:
     st.info("ML Profiles not generated yet. Waiting for `ml_clustering.py` pipeline execution.")
