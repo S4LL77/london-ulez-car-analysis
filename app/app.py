@@ -154,6 +154,17 @@ if not df_clusters.empty:
         distribution.columns = ['Profile', 'Count']
         st.table(distribution)
         st.info("These business profiles are grouped algorithmically based on Price, Mileage, and Age, independently of human bias.")
+        
+    st.divider()
+    st.subheader("🔍 K-Means Sample Profiles")
+    st.write("Real vehicle examples representing each algorithmic category:")
+    examples = df_clusters.groupby('cluster_name').head(3).sort_values('cluster_name')
+    st.dataframe(
+        examples[['cluster_name', 'brand', 'model', 'year', 'price', 'mileage', 'is_ulez_compliant']], 
+        use_container_width=True,
+        hide_index=True
+    )
+    
 else:
     st.info("ML Profiles not generated yet. Waiting for `ml_clustering.py` pipeline execution.")
 
