@@ -6,11 +6,14 @@ This end-to-end Data Engineering and Analytics project investigates the economic
 
 *(Add the screenshots from your Streamlit Dashboards / API here)*
 
-![Dashboard Overview](docs/images/streamlit_overview.png)
-> **Note:** Drop your dashboard overview screenshot at `docs/images/streamlit_overview.png`
+![Dashboard Overview](docs/images/dashboard_overview.png)
+*Live market metrics and price gap analysis between compliant and non-compliant vehicles.*
 
-![Price Depreciation Analysis](docs/images/price_analysis.png)
-> **Note:** Drop your price analysis screenshot at `docs/images/price_analysis.png`
+![Diesel Devaluation Analysis](docs/images/diesel_devaluation.png)
+*Detailed ranking of top 30 diesel models most affected by the ULEZ expansion.*
+
+![Machine Learning Market Segmentation](docs/images/ml_clusters.png)
+*K-Means clustering algorithm segmenting the market based on price and mileage profiles.*
 
 ## 🏗️ Data Engineering Architecture
 
