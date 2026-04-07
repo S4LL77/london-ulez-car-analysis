@@ -1,0 +1,15 @@
+# Python requirements for ULEZ project
+pandas
+numpy
+scikit-learn
+xgboost
+shap
+matplotlib
+seaborn
+snowflake-connector-python[pandas]
+dbt-snowflake
+python-dotenv
+kaggle
+watchdog
+streamlit
+plotly
