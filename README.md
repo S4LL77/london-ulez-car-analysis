@@ -4,7 +4,6 @@ This end-to-end Data Engineering and Analytics project investigates the economic
 
 ## 📊 Analytics & Insights
 
-*(Add the screenshots from your Streamlit Dashboards / API here)*
 
 ![Dashboard Overview](docs/images/dashboard_overview.png)
 *Live market metrics and price gap analysis between compliant and non-compliant vehicles.*
