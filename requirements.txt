@@ -13,3 +13,8 @@ kaggle
 watchdog
 streamlit
 plotly
+
+# Dev & Quality Tools
+ruff
+pytest
+pytest-mock
