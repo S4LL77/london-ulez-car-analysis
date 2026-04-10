@@ -134,48 +134,51 @@ else:
 # --- METRICS ---
 st.subheader("Live Market Insights")
 m1, m2, m3 = st.columns(3)
-m1.metric("Live Listings Processed", f"{len(df) * 125}+", "Real-time")
+m1.metric("Live Listings Processed", f"{len(df) * 125}+" if not df.empty else "0", "Real-time")
 m2.metric("Avg. ULEZ Penalty", "22.4%", "+1.2% this week")
 m3.metric("Data Source", "AutoTrader UK", "Live JSON Feed")
 
 # Visuals
-col1, col2 = st.columns(2)
+if not df.empty:
+    col1, col2 = st.columns(2)
 
-with col1:
-    st.subheader("Price Gap: Compliant vs Non-Compliant")
-    fig = px.bar(
-        df,
-        x="brand",
-        y=["avg_price_compliant", "avg_price_non_compliant"],
-        barmode="group",
-        title="Current Market Values (£)",
+    with col1:
+        st.subheader("Price Gap: Compliant vs Non-Compliant")
+        fig = px.bar(
+            df,
+            x="brand",
+            y=["avg_price_compliant", "avg_price_non_compliant"],
+            barmode="group",
+            title="Current Market Values (£)",
+        )
+        st.plotly_chart(fig, use_container_width=True)
+
+    with col2:
+        st.subheader("Impact by Brand (Disvaluation %)")
+        st.dataframe(
+            df[["brand", "percent_diff"]]
+            .sort_values("percent_diff")
+            .style.background_gradient(subset=["percent_diff"], cmap="Reds")
+        )
+
+if not df_diesel.empty:
+    st.subheader("⚠️ Top 30 Diesel Devaluation (ULEZ Impact)")
+    st.info(
+        "Ranking models by the highest negative impact (Percentage drop between compliant vs non-compliant versions)"
     )
-    st.plotly_chart(fig, use_container_width=True)
-
-with col2:
-    st.subheader("Impact by Brand (Disvaluation %)")
     st.dataframe(
-        df[["brand", "percent_diff"]]
-        .sort_values("percent_diff")
-        .style.background_gradient(subset=["percent_diff"], cmap="Reds")
+        df_diesel.style.background_gradient(
+            subset=["devaluation_percent"], cmap="Reds_r"
+        ).format({"avg_price_compliant": "£{:,.0f}", "devaluation_percent": "{:.1f}%"}),
+        use_container_width=True,
     )
 
-st.subheader("⚠️ Top 30 Diesel Devaluation (ULEZ Impact)")
-st.info(
-    "Ranking models by the highest negative impact (Percentage drop between compliant vs non-compliant versions)"
-)
-st.dataframe(
-    df_diesel.style.background_gradient(
-        subset=["devaluation_percent"], cmap="Reds_r"
-    ).format({"avg_price_compliant": "£{:,.0f}", "devaluation_percent": "{:.1f}%"}),
-    use_container_width=True,
-)
-
-st.warning(
-    "Analysis Insight: Audi diesel vehicles (pre-2015) currently show the highest disvaluation rate (25.2%) in the London region."
-)
+    st.warning(
+        "Analysis Insight: Audi diesel vehicles (pre-2015) currently show the highest disvaluation rate (25.2%) in the London region."
+    )
 
 st.divider()
+
 
 # --- MACHINE LEARNING SECTION ---
 st.subheader("🤖 Machine Learning: Market Segmentation (K-Means)")
