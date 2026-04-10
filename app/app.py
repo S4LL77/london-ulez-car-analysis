@@ -163,7 +163,8 @@ if not df.empty:
         st.dataframe(
             df[["brand", "percent_diff"]]
             .sort_values("percent_diff")
-            .style.background_gradient(subset=["percent_diff"], cmap="Reds")
+            .style.background_gradient(subset=["percent_diff"], cmap="Reds"),
+            hide_index=True,
         )
 
 if not df_diesel.empty:
