@@ -37,3 +37,8 @@ The ingestion engine (`scripts/data_engine.py`) performs the following:
 2.  Pre-processes basic attributes (Mileage, Engine Size).
 3.  Uses Snowflake **Internal Stages** for bulk loading via `PUT` and `COPY INTO`.
 4.  Ensures idempotency by checking `advertId` before final insertion.
+
+## 🔄 Applying Analytical Changes
+If any script in `snowflake/setup/` (especially those in the `GOLD` layer like `07_mart_diesel_devaluation.sql`) is modified, it must be **re-executed manually** in the Snowflake console to update the corresponding view or table. 
+
+This ensures the **Streamlit Dashboard** always reflects the latest business logic versioned in this repository.

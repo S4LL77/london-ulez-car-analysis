@@ -52,6 +52,12 @@ The environment is configured via SQL scripts in `snowflake/setup/` which follow
    - Materialized views for "Diesel Devaluation" ranking and market trends.
    - Serves as the source of truth for the **Streamlit Dashboard**.
 
+### 🛠️ Maintenance & Applying Changes
+When analytical logic is updated (e.g., changing ranking limits or sorting criteria):
+1. **Infrastructure Update**: You must re-run the corresponding SQL script in `snowflake/setup/` via the Snowflake console.
+2. **App Trigger**: The Streamlit dashboard (Cloud or Local) will automatically pick up the new logic once the view is updated in the database.
+3. **Cache Clearing**: If data doesn't update immediately, press **`C`** on the Streamlit dashboard to clear its internal cache.
+
 ---
 
 ## 🛡️ Quality Assurance & CI/CD
