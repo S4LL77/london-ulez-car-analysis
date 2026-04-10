@@ -24,5 +24,5 @@ SELECT
     ROUND(avg_price_compliant - avg_price_non_compliant, 0) as devaluation_amount,
     ROUND(((avg_price_non_compliant - avg_price_compliant) / NULLIF(avg_price_compliant, 0)) * 100, 1) as devaluation_percent
 FROM diesel_stats
-ORDER BY devaluation_percent DESC
+ORDER BY devaluation_percent ASC
 LIMIT 30;

@@ -95,6 +95,11 @@ def get_top_diesel_devaluation():
     query = "SELECT * FROM GOLD.MART_DIESEL_TOP_30_DEVALUATION"
     df = pd.read_sql(query, conn)
     df.columns = [c.lower() for c in df.columns]
+    
+    # Add a Rank column starting from 1
+    if not df.empty:
+        df.insert(0, 'rank', range(1, len(df) + 1))
+        
     return df
 
 
@@ -171,6 +176,7 @@ if not df_diesel.empty:
             subset=["devaluation_percent"], cmap="Reds_r"
         ).format({"avg_price_compliant": "£{:,.0f}", "devaluation_percent": "{:.1f}%"}),
         use_container_width=True,
+        hide_index=True,
     )
 
     st.warning(
