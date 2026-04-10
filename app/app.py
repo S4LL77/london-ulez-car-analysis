@@ -90,9 +90,9 @@ def get_live_stats():
 @st.cache_data(ttl=600)
 def get_top_diesel_devaluation():
     """
-    Fetches the top 30 diesel car models that have devalued the most from GOLD layer.
+    Fetches the top 10 diesel car models that have devalued the most from GOLD layer.
     """
-    query = "SELECT * FROM GOLD.MART_DIESEL_TOP_30_DEVALUATION"
+    query = "SELECT * FROM GOLD.MART_DIESEL_TOP_10_DEVALUATION"
     df = pd.read_sql(query, conn)
     df.columns = [c.lower() for c in df.columns]
     
@@ -167,7 +167,7 @@ if not df.empty:
         )
 
 if not df_diesel.empty:
-    st.subheader("⚠️ Top 30 Diesel Devaluation (ULEZ Impact)")
+    st.subheader("⚠️ Top 10 Diesel Devaluation (ULEZ Impact)")
     st.info(
         "Ranking models by the highest negative impact (Percentage drop between compliant vs non-compliant versions)"
     )

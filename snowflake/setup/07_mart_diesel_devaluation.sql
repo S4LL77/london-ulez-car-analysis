@@ -2,7 +2,7 @@
 USE DATABASE ULEZ_DB;
 USE SCHEMA GOLD;
 
-CREATE OR REPLACE VIEW MART_DIESEL_TOP_30_DEVALUATION AS
+CREATE OR REPLACE VIEW MART_DIESEL_TOP_10_DEVALUATION AS
 WITH diesel_stats AS (
     SELECT 
         brand,
@@ -25,4 +25,4 @@ SELECT
     ROUND(((avg_price_non_compliant - avg_price_compliant) / NULLIF(avg_price_compliant, 0)) * 100, 1) as devaluation_percent
 FROM diesel_stats
 ORDER BY devaluation_percent ASC
-LIMIT 30;
+LIMIT 10;
