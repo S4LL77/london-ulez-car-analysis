@@ -179,9 +179,11 @@ if not df.empty:
         st.subheader("Impact by Brand (Disvaluation %)")
         st.dataframe(
             df[["brand", "percent_diff"]]
-            .sort_values("percent_diff")
-            .style.background_gradient(subset=["percent_diff"], cmap="Reds"),
+            .rename(columns={"percent_diff": "Disvaluation %"})
+            .sort_values("Disvaluation %")
+            .style.background_gradient(subset=["Disvaluation %"], cmap="Reds"),
             hide_index=True,
+            use_container_width=True
         )
 
 if not df_diesel.empty:
