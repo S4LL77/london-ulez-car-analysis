@@ -148,26 +148,26 @@ if not df.empty:
     col1, col2 = st.columns(2)
 
     with col1:
-        st.subheader("✅ Price Gap: Compliant vs Non-Compliant")
+        st.subheader("Price Gap: Compliant vs Non-Compliant")
         
         # Manually melting for absolute control over legend labels
         df_melted = df.melt(
             id_vars=["brand"], 
             value_vars=["avg_price_compliant", "avg_price_non_compliant"],
             var_name="Category",
-            value_name="Price (£)"
+            value_name="Average Price (£)"
         )
         
         # Professional labels for the legend
         df_melted["Category"] = df_melted["Category"].map({
-            "avg_price_compliant": "Compliant Price Average",
-            "avg_price_non_compliant": "Non-Compliant Price Average"
+            "avg_price_compliant": "Compliant Average Price",
+            "avg_price_non_compliant": "Non-Compliant Average Price"
         })
 
         fig = px.bar(
             df_melted,
             x="brand",
-            y="Price (£)",
+            y="Average Price (£)",
             color="Category",
             barmode="group",
             title="Current Market Values (£)",
@@ -192,8 +192,8 @@ if not df_diesel.empty:
     
     # Rename columns for the table view
     df_diesel_refined = df_diesel.rename(columns={
-        "avg_price_compliant": "Compliant Price Average",
-        "avg_price_non_compliant": "Non-Compliant Price Average",
+        "avg_price_compliant": "Compliant Average Price",
+        "avg_price_non_compliant": "Non-Compliant Average Price",
         "devaluation_percent": "Devaluation (%)",
         "devaluation_amount": "Price Drop (£)"
     })
@@ -201,7 +201,7 @@ if not df_diesel.empty:
     st.dataframe(
         df_diesel_refined.style.background_gradient(
             subset=["Devaluation (%)"], cmap="Reds_r"
-        ).format({"Compliant Price Average": "£{:,.0f}", "Non-Compliant Price Average": "£{:,.0f}", "Devaluation (%)": "{:.1f}%"}),
+        ).format({"Compliant Average Price": "£{:,.0f}", "Non-Compliant Average Price": "£{:,.0f}", "Devaluation (%)": "{:.1f}%"}),
         use_container_width=True,
         hide_index=True,
     )
